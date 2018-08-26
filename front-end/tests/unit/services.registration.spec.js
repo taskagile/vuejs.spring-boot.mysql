@@ -39,4 +39,17 @@ describe('services/registration', () => {
       expect(error.response.message).toEqual('Bad request')
     })
   })
+
+  it('should call `/registrations` API', () => {
+    expect.assertions(1)
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      expect(request.url).toEqual('/registrations')
+      request.respondWith({
+        status: 200,
+        response: {result: 'success'}
+      })
+    })
+    return registrationService.register()
+  })
 })
