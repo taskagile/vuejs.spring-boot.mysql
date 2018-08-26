@@ -1,5 +1,7 @@
 package com.taskagile.domain.application.commands;
 
+import org.springframework.util.Assert;
+
 public class RegistrationCommand {
 
   private String username;
@@ -7,6 +9,10 @@ public class RegistrationCommand {
   private String password;
 
   public RegistrationCommand(String username, String emailAddress, String password) {
+    Assert.hasText(username, "Parameter `username` must not be empty");
+    Assert.hasText(emailAddress, "Parameter `emailAddress` must not be empty");
+    Assert.hasText(password, "Parameter `password` must not be empty");
+
     this.username = username;
     this.emailAddress = emailAddress;
     this.password = password;
