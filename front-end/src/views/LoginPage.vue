@@ -70,7 +70,7 @@ export default {
       }
 
       authenticationService.authenticate(this.form).then(() => {
-        this.$router.push({name: 'HomePage'})
+        this.$router.push({name: 'home'})
       }).catch((error) => {
         this.errorMessage = error.message
       })
