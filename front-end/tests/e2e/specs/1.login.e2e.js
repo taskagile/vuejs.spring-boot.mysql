@@ -41,7 +41,7 @@ module.exports = {
 
     homePage
       .navigate()
-      .expect.element('@pageTitle').text.to.contain('Home Page')
+      .assert.visible('@logoImage')
 
     browser.end()
   },
@@ -56,7 +56,7 @@ module.exports = {
 
     homePage
       .navigate()
-      .expect.element('@pageTitle').text.to.contain('Home Page')
+      .assert.visible('@logoImage')
 
     browser.end()
   }

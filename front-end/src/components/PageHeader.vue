@@ -1,8 +1,8 @@
 <template>
   <div class="page-header d-flex align-content-center">
-    <div class="logo">
+    <div class="logo" @click="goHome()">
       <font-awesome-icon icon="home" class="home-icon" />
-      <img class="logo" src="/static/images/logo.png">
+      <img src="/static/images/logo.png">
     </div>
     <div class="boards-menu-toggle">
       <div class="dropdown">
@@ -10,8 +10,17 @@
           Boards
         </button>
         <div class="dropdown-menu" aria-labelledby="boardsMenu">
-          <h6 class="dropdown-header">Personal Boards</h6>
-          <button class="dropdown-item" type="button">vuejs.spring-boot.mysql</button>
+          <div v-show="!hasBoards" class="dropdown-item">No boards</div>
+          <div v-show="hasBoards">
+            <h6 class="dropdown-header" v-show="personalBoards.length">Personal Boards</h6>
+            <button v-for="board in personalBoards" v-bind:key="board.id" @click="openBoard(board)"
+                    class="dropdown-item" type="button">{{ board.name }}</button>
+            <div v-for="team in teamBoards" v-bind:key="'t' + team.id">
+              <h6 class="dropdown-header">{{ team.name }}</h6>
+              <button v-for="board in team.boards" v-bind:key="board.id" @click="openBoard(board)"
+                      class="dropdown-item" type="button">{{ board.name }}</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -24,7 +33,7 @@
     <div class="profile-menu-toggle">
       <div class="dropdown">
         <button class="btn dropdown-toggle" type="button" id="profileMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          James J. Ye
+          {{ user.name }}
         </button>
         <div class="dropdown-menu" aria-labelledby="profileMenu">
           <button class="dropdown-item" type="button">Profile</button>
@@ -37,9 +46,29 @@
 
 <script>
 import 'bootstrap/dist/js/bootstrap.min'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: 'PageHeader'
+  name: 'PageHeader',
+  computed: {
+    ...mapGetters([
+      'user',
+      'hasBoards',
+      'personalBoards',
+      'teamBoards'
+    ])
+  },
+  created () {
+    this.$store.dispatch('getMyData')
+  },
+  methods: {
+    goHome () {
+      this.$router.push({name: 'home'})
+    },
+    openBoard (board) {
+      this.$router.push({name: 'board', params: { boardId: board.id }})
+    }
+  }
 }
 </script>
 
@@ -53,17 +82,18 @@ export default {
     height: 25px;
     width: 115px;
     margin-top: 2px;
+    cursor: pointer;
 
     .home-icon {
-      font-size: 25px;
+      font-size: 20px;
       vertical-align: middle;
     }
 
     img {
       margin-left: 5px;
+      margin-top: 6px;
       width: 80px;
-      height: 20px;
-      vertical-align: bottom;
+      // vertical-align: bottom;
     }
   }
 
@@ -96,6 +126,7 @@ export default {
       height: calc(1.8125rem + 5px);
       font-size: 1rem;
       border: 1px solid #eee;
+      border-radius: 5px;
     }
 
     input:focus {
