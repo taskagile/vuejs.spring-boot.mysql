@@ -35,15 +35,27 @@
         <button class="btn btn-link" @click="createTeam()">+ Create New Team</button>
       </div>
     </div>
+    <CreateBoardModal
+      :teamId="selectedTeamId"
+      @created="onBoardCreated" />
+    <CreateTeamModal />
   </div>
 </template>
 
 <script>
+import $ from 'jquery'
 import PageHeader from '@/components/PageHeader.vue'
+import CreateBoardModal from '@/modals/CreateBoardModal.vue'
+import CreateTeamModal from '@/modals/CreateTeamModal.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'HomePage',
+  data () {
+    return {
+      selectedTeamId: 0
+    }
+  },
   computed: {
     ...mapGetters([
       'personalBoards',
@@ -51,72 +63,80 @@ export default {
     ])
   },
   components: {
-    PageHeader
+    PageHeader,
+    CreateBoardModal,
+    CreateTeamModal
   },
   methods: {
     openBoard (board) {
       this.$router.push({name: 'board', params: {boardId: board.id}})
     },
     createBoard (team) {
+      this.selectedTeamId = team ? team.id : 0
+      $('#createBoardModal').modal('show')
     },
     createTeam () {
+      $('#createTeamModal').modal('show')
+    },
+    onBoardCreated (boardId) {
+      this.$router.push({name: 'board', params: {boardId: boardId}})
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .boards-container {
-    padding: 0 35px;
+.boards-container {
+  padding: 0 35px;
 
-    h2 {
-      font-size: 18px;
-      margin-bottom: 15px;
-      font-weight: 400;
-    }
+  h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    font-weight: 400;
+  }
 
-    .boards-section {
-      margin: 30px 10px;
+  .boards-section {
+    margin: 30px 10px;
 
-      .boards {
+    .boards {
 
-        .board {
-          width: 270px;
-          height: 110px;
-          border-radius: 5px;
-          background-color: #377EF6;
-          color: #fff;
-          padding: 15px;
-          margin-right: 10px;
-          cursor: pointer;
+      .board {
+        width: 270px;
+        height: 110px;
+        border-radius: 5px;
+        background-color: #377EF6;
+        color: #fff;
+        padding: 15px;
+        margin-right: 10px;
+        cursor: pointer;
 
-          h3 {
-            font-size: 16px;
-          }
-
-          p {
-            line-height: 1.2;
-            font-size: 90%;
-            font-weight: 100;
-            color: rgba(255, 255, 255, 0.70)
-          }
+        h3 {
+          font-size: 16px;
         }
 
-        .add {
-          background-color: #f4f4f4;
-          color: #666;
-          text-align: center;
-          padding-top: 30px;
-          font-weight: 400;
+        p {
+          line-height: 1.2;
+          font-size: 90%;
+          font-weight: 100;
+          color: rgba(255, 255, 255, 0.70)
         }
       }
-    }
 
-    .create-team-wrapper {
-      .btn-link {
+      .add {
+        background-color: #f4f4f4;
         color: #666;
-        text-decoration: underline;
+        text-align: center;
+        padding-top: 30px;
+        font-weight: 400;
       }
     }
   }
+
+  .create-team-wrapper {
+    .btn-link {
+      color: #666;
+      text-decoration: underline;
+    }
+  }
+}
 </style>
