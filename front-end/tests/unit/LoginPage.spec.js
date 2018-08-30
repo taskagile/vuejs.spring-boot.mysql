@@ -27,10 +27,7 @@ describe('LoginPage.vue', () => {
     wrapper = mount(LoginPage, {
       localVue,
       router,
-      i18n,
-      mocks: {
-        $t: (msg) => i18n.t(msg)
-      }
+      i18n
     })
     fieldUsername = wrapper.find('#username')
     fieldPassword = wrapper.find('#password')
