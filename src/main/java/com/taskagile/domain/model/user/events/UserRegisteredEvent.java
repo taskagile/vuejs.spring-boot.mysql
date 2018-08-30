@@ -10,8 +10,8 @@ public class UserRegisteredEvent extends DomainEvent {
 
   private User user;
 
-  public UserRegisteredEvent(User user) {
-    super(user);
+  public UserRegisteredEvent(Object source, User user) {
+    super(source);
     Assert.notNull(user, "Parameter `user` must not be null");
     this.user = user;
   }

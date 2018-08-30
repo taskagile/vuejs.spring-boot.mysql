@@ -25,7 +25,6 @@ public interface UserRepository {
    * Save a new user or an existing user
    *
    * @param user the user instance to be saved
-   * @return the newly save user
    */
   void save(User user);
 }

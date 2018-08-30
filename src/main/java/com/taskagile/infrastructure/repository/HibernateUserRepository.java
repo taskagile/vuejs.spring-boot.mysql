@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 
 @Repository
-public class HibernateUserRepository extends HibernateSupport implements UserRepository {
+public class HibernateUserRepository extends HibernateSupport<User> implements UserRepository {
 
   public HibernateUserRepository(EntityManager entityManager) {
     super(entityManager);
@@ -26,11 +26,5 @@ public class HibernateUserRepository extends HibernateSupport implements UserRep
     Query<User> query = getSession().createQuery("from User where emailAddress = :emailAddress", User.class);
     query.setParameter("emailAddress", emailAddress);
     return query.uniqueResult();
-  }
-
-  @Override
-  public void save(User user) {
-    entityManager.persist(user);
-    entityManager.flush();
   }
 }
