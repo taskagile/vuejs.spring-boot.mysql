@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { i18n } from '@/i18n'
 
 export default {
   parse (error) {
@@ -9,26 +10,26 @@ export default {
         if (data && data.message) {
           return new Error(data.message)
         } else {
-          return new Error('Bad request')
+          return new Error(i18n.t('error.request.bad'))
         }
       } else if (status === 401) {
-        return new Error('Request not authorized.')
+        return new Error(i18n.t('error.request.notAuthorized'))
       } else if (status === 403) {
-        return new Error('Request forbidden.')
+        return new Error(i18n.t('error.request.forbidden'))
       } else if (status === 404) {
-        return new Error('Request failed. Request endpoint not found on the server.')
+        return new Error(i18n.t('error.request.notFound'))
       } else if (status === 500) {
         if (data && data.message) {
-          return new Error(data.message + ' Please try again later.')
+          return new Error(data.message)
         } else {
-          return new Error('There is an error on the server side. Please try again later.')
+          return new Error(i18n.t('error.request.unknownServerError'))
         }
       } else {
-        return new Error('Request failed. Please try again later.')
+        return new Error(i18n.t('error.request.failed'))
       }
     } else if (error.request) {
       // Request was made and no response
-      return new Error('Request failed. No response from the server.')
+      return new Error(i18n.t('error.request.noResponse'))
     } else {
       return _.isError(error) ? error : new Error(error)
     }

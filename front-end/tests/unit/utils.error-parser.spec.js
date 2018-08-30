@@ -78,7 +78,7 @@ describe('utils/error-parser', () => {
         status: 500,
         statusText: 'Internal Server Error',
         data: {
-          message: 'This is rephrased error message.'
+          message: 'This is rephrased error message. Please try again later.'
         }
       }
     }

@@ -1,0 +1,83 @@
+{
+  "logo": {
+    "tagLine": "Open source task management tool"
+  },
+  "header": {
+    "boardsMenu": {
+      "label": "Boards",
+      "noBoard": "No board",
+      "personalBoards": "Personal Boards"
+    },
+    "search": "Search",
+    "profile": "Profile",
+    "signOut": "Sign Out"
+  },
+  "loginPage": {
+    "form": {
+      "username": {
+        "label": "Username or email address",
+        "required": "Username or email address is required"
+      },
+      "password": {
+        "label": "Password",
+        "required": "Password is required"
+      },
+      "submit": "Sign in",
+      "noAccountYet": "Don't have an account yet?",
+      "signUpHere": "Sign up here",
+      "forgotPassword": "Forgot your password?"
+    }
+  },
+  "registerPage": {
+    "form": {
+      "username": {
+        "label": "Username",
+        "requred": "Username is required",
+        "alphaNum": "Username can only contain letters and numbers",
+        "minLength": "Username must have at least {minLength} letters.",
+        "maxLength": "Username is too long. It can contains maximium {maxLength} letters."
+      },
+      "emailAddress": {
+        "label": "Email address",
+        "required": "Email address is required",
+        "email": "This is not a valid email address",
+        "maxLength": "Email address is too long. It can contains maximium {maxLength} letters."
+      },
+      "password": {
+        "label": "Password",
+        "required": "Password is required",
+        "minLength": "Password is too short. It can contains at least {minLength} letters.",
+        "maxLength": "Password is too long. It can contains maximium {maxLength} letters."
+      },
+      "submit": "Create account",
+      "terms": {
+        "accept": "By clicking “Create account”, you agree to our {termsOfService} and {privacyPolicy}.",
+        "termsOfService": "terms of service",
+        "privacyPolicy": "privacy policy"
+      },
+      "alreadyHaveAccount": "Already have an account?",
+      "signIn": "Sign in"
+    }
+  },
+  "homePage": {
+    "personalBoards": "Personal Boards",
+    "createNewBoard": "Create New Board",
+    "createNewTeam": "Create New Team"
+  },
+  "pageFooter": {
+    "about": "About",
+    "termOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "error": {
+    "request": {
+      "bad": "Bad request",
+      "notAuthorized": "Request not authorized.",
+      "forbidden": "Request forbidden.",
+      "notFound": "Request failed. Request endpoint not found on the server.",
+      "unknownServerError": "There is an error on the server side. Please try again later.",
+      "failed": "Request failed. Please try again later.",
+      "noResponse": "Request failed. No response from the server."
+    }
+  }
+}
