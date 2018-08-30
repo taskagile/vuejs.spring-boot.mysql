@@ -24,6 +24,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
     <commons-io.version>2.6</commons-io.version>
+    <p6spy.version>3.7.0</p6spy.version>
   </properties>
 
   <dependencies>
@@ -68,6 +69,12 @@
     <dependency>
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>p6spy</groupId>
+      <artifactId>p6spy</artifactId>
+      <version>${p6spy.version}</version>
     </dependency>
 
     <dependency>
