@@ -2,7 +2,7 @@
   <div class="page-header d-flex align-content-center">
     <div class="logo" @click="goHome()">
       <font-awesome-icon icon="home" class="home-icon" />
-      <img src="/static/images/logo.png">
+      <img src="/images/logo.png">
     </div>
     <div class="boards-menu-toggle">
       <div class="dropdown">
