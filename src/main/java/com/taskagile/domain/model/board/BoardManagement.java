@@ -10,7 +10,8 @@ public class BoardManagement {
   private BoardRepository boardRepository;
   private BoardMemberRepository boardMemberRepository;
 
-  public BoardManagement(BoardRepository boardRepository, BoardMemberRepository boardMemberRepository) {
+  public BoardManagement(BoardRepository boardRepository,
+                         BoardMemberRepository boardMemberRepository) {
     this.boardRepository = boardRepository;
     this.boardMemberRepository = boardMemberRepository;
   }

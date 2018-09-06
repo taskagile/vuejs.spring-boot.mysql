@@ -1,9 +1,11 @@
 package com.taskagile.infrastructure.repository;
 
 import com.taskagile.domain.model.team.Team;
+import com.taskagile.domain.model.team.TeamId;
 import com.taskagile.domain.model.team.TeamRepository;
 import com.taskagile.domain.model.user.UserId;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -20,13 +22,20 @@ public class HibernateTeamRepository extends HibernateSupport<Team> implements T
   public List<Team> findTeamsByUserId(UserId userId) {
     String sql =
       " SELECT t.* FROM team t WHERE t.user_id = :userId " +
-      " UNION " +
-      " ( " +
-      "   SELECT t.* FROM team t, board b, board_member bm " +
-      "   WHERE t.id = b.team_id AND bm.board_id = b.id AND bm.user_id = :userId " +
-      " ) ";
+        " UNION " +
+        " ( " +
+        "   SELECT t.* FROM team t, board b, board_member bm " +
+        "   WHERE t.id = b.team_id AND bm.board_id = b.id AND bm.user_id = :userId " +
+        " ) ";
     NativeQuery<Team> query = getSession().createNativeQuery(sql, Team.class);
     query.setParameter("userId", userId.value());
     return query.list();
+  }
+
+  @Override
+  public Team findById(TeamId teamId) {
+    Query<Team> query = getSession().createQuery("from Team where id = :id", Team.class);
+    query.setParameter("id", teamId.value());
+    return query.uniqueResult();
   }
 }

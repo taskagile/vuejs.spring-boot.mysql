@@ -32,22 +32,36 @@
     "form": {
       "username": {
         "label": "Username",
-        "requred": "Username is required",
+        "required": "Username is required",
         "alphaNum": "Username can only contain letters and numbers",
         "minLength": "Username must have at least {minLength} letters.",
-        "maxLength": "Username is too long. It can contains maximium {maxLength} letters."
+        "maxLength": "Username is too long. It can contains maximum {maxLength} letters."
       },
       "emailAddress": {
         "label": "Email address",
         "required": "Email address is required",
         "email": "This is not a valid email address",
-        "maxLength": "Email address is too long. It can contains maximium {maxLength} letters."
+        "maxLength": "Email address is too long. It can contains maximum {maxLength} letters."
+      },
+      "firstName": {
+        "label": "First name",
+        "required": "First name is required",
+        "alpha": "First name can only contain letters",
+        "minLength": "First name must have at least {minLength} letters.",
+        "maxLength": "First name is too long. It can contains maximum {maxLength} letters."
+      },
+      "lastName": {
+        "label": "Last name",
+        "required": "Last name is required",
+        "alpha": "Last name can only contain letters",
+        "minLength": "Last name must have at least {minLength} letters.",
+        "maxLength": "Last name is too long. It can contains maximum {maxLength} letters."
       },
       "password": {
         "label": "Password",
         "required": "Password is required",
         "minLength": "Password is too short. It can contains at least {minLength} letters.",
-        "maxLength": "Password is too long. It can contains maximium {maxLength} letters."
+        "maxLength": "Password is too long. It can contains maximum {maxLength} letters."
       },
       "submit": "Create account",
       "terms": {

@@ -1,9 +1,11 @@
 package com.taskagile.infrastructure.repository;
 
 import com.taskagile.domain.model.board.Board;
+import com.taskagile.domain.model.board.BoardId;
 import com.taskagile.domain.model.board.BoardRepository;
 import com.taskagile.domain.model.user.UserId;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -24,4 +26,10 @@ public class HibernateBoardRepository extends HibernateSupport<Board> implements
     return query.list();
   }
 
+  @Override
+  public Board findById(BoardId boardId) {
+    Query<Board> query = getSession().createQuery("from Board where id = :id", Board.class);
+    query.setParameter("id", boardId.value());
+    return query.uniqueResult();
+  }
 }

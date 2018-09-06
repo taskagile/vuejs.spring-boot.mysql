@@ -16,6 +16,14 @@ public interface BoardRepository {
   List<Board> findBoardsByMembership(UserId userId);
 
   /**
+   * Find board by its id
+   *
+   * @param boardId the id of the board
+   * @return the board instance or null if it doesn't exist
+   */
+  Board findById(BoardId boardId);
+
+  /**
    * Save a board
    *
    * @param board the board to save

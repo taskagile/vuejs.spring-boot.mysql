@@ -15,6 +15,14 @@ public interface TeamRepository {
   List<Team> findTeamsByUserId(UserId userId);
 
   /**
+   * Find a team by id
+   *
+   * @param teamId the id of the team
+   * @return the team instance or null if not found
+   */
+  Team findById(TeamId teamId);
+
+  /**
    * Save a team
    *
    * @param team the team to save
