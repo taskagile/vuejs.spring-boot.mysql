@@ -60,8 +60,10 @@ export default {
       'teamBoards'
     ])
   },
-  created () {
-    this.$store.dispatch('getMyData')
+  mounted () {
+    if (!this.user.authenticated) {
+      this.$store.dispatch('getMyData')
+    }
   },
   methods: {
     goHome () {
@@ -71,7 +73,10 @@ export default {
       this.$router.push({name: 'board', params: { boardId: board.id }})
     },
     signOut () {
+      this.$rt.logout()
+
       meService.signOut().then(() => {
+        this.$store.dispatch('logout')
         this.$router.push({name: 'login'})
       }).catch(error => {
         notify.error(error.message)

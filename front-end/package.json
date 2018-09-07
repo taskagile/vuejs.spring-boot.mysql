@@ -23,6 +23,7 @@
     "noty": "^3.2.0-beta",
     "npm": "^6.4.0",
     "popper.js": "^1.14.4",
+    "sockjs-client": "^1.1.5",
     "vue": "^2.5.17",
     "vue-i18n": "^8.0.0",
     "vue-router": "^3.0.1",

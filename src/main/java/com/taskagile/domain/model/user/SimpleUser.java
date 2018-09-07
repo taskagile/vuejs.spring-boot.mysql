@@ -80,7 +80,7 @@ public class SimpleUser implements UserDetails, Serializable {
     return "SimpleUser{" +
       "userId=" + userId +
       ", username='" + username + '\'' +
-      ", password='" + password + '\'' +
+      ", password=[Protected]" +
       '}';
   }
 }

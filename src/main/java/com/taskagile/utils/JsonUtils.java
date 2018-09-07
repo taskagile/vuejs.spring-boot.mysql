@@ -2,7 +2,6 @@ package com.taskagile.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.taskagile.web.apis.authenticate.AuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +20,7 @@ public final class JsonUtils {
     try {
       return mapper.writeValueAsString(object);
     } catch (JsonProcessingException e) {
-      log.error("Failed to convert object to JSON string", e);
-      return null;
+      throw new RuntimeException("Failed to convert object to JSON string", e);
     }
   }
 
