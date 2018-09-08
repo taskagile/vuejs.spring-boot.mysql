@@ -100,7 +100,7 @@ class RealTimeClient {
     console.log('[RealTimeClient] Received message', message)
 
     if (message.channel) {
-      this.$bus.$emit(this._channelEvent(message.channel), message.payload)
+      this.$bus.$emit(this._channelEvent(message.channel), JSON.parse(message.payload))
     }
   }
   _send (message) {

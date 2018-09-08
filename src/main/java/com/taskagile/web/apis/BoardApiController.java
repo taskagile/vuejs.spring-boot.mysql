@@ -32,7 +32,6 @@ public class BoardApiController {
   private TeamService teamService;
   private CardListService cardListService;
   private CardService cardService;
-  private UserService userService;
 
   public BoardApiController(BoardService boardService,
                             TeamService teamService,

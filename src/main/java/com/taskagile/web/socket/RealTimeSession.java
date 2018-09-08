@@ -1,5 +1,6 @@
 package com.taskagile.web.socket;
 
+import com.taskagile.domain.model.user.UserId;
 import com.taskagile.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +18,28 @@ import java.net.URI;
 public class RealTimeSession {
 
   private static final Logger log = LoggerFactory.getLogger(RealTimeSession.class);
+  private static final String KEY_USER_ID = "KEY_USER_ID";
 
   private WebSocketSession session;
 
   RealTimeSession(WebSocketSession session) {
     this.session = session;
+  }
+
+  public String id() {
+    return session.getId();
+  }
+
+  public WebSocketSession wrapped() {
+    return session;
+  }
+
+  public void setUserId(UserId userId) {
+    addAttribute(KEY_USER_ID, userId);
+  }
+
+  public UserId getUserId() {
+    return getAttribute(KEY_USER_ID);
   }
 
   void addAttribute(String key, Object value) {
@@ -43,12 +61,16 @@ public class RealTimeSession {
     return uriComponents.getQueryParams().getFirst("token");
   }
 
+  public void error(String error) {
+    sendMessage(WebSocketMessages.error(error));
+  }
+
   public void fail(String failure) {
-    sendMessage(WebSocketMessage.failure(failure));
+    sendMessage(WebSocketMessages.failure(failure));
   }
 
   public void reply(String reply) {
-    sendMessage(WebSocketMessage.reply(reply));
+    sendMessage(WebSocketMessages.reply(reply));
   }
 
   private void sendMessage(Object message) {
