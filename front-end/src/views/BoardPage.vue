@@ -99,19 +99,44 @@ export default {
     draggable
   },
   beforeRouteEnter (to, from, next) {
-    boardService.getBoard(to.params.boardId).then(data => {
-      next(vm => {
-        vm.team.name = data.team ? data.team.name : ''
-        vm.board.id = data.board.id
-        vm.board.personal = data.board.personal
-        vm.board.name = data.board.name
+    next(vm => {
+      vm.loadBoard()
+    })
+  },
+  beforeRouteUpdate (to, from, next) {
+    next()
+    this.unsubscribeFromRealTimeUpdate()
+    this.loadBoard()
+  },
+  beforeRouteLeave (to, from, next) {
+    next()
+    this.unsubscribeFromRealTimeUpdate()
+  },
+  mounted () {
+    this.$el.addEventListener('click', this.dismissActiveForms)
+  },
+  beforeDestroy () {
+    this.$el.removeEventListener('click', this.dismissActiveForms)
+  },
+  methods: {
+    loadBoard () {
+      console.log('[BoardPage] Loading board')
+      boardService.getBoard(this.$route.params.boardId).then(data => {
+        this.team.name = data.team ? data.team.name : ''
+        this.board.id = data.board.id
+        this.board.personal = data.board.personal
+        this.board.name = data.board.name
+
+        this.members.splice(0)
 
         data.members.forEach(member => {
-          vm.members.push({
+          this.members.push({
             id: member.userId,
             shortName: member.shortName
           })
         })
+
+        this.cardLists.splice(0)
 
         data.cardLists.sort((list1, list2) => {
           return list1.position - list2.position
@@ -122,7 +147,7 @@ export default {
             return card1.position - card2.position
           })
 
-          vm.cardLists.push({
+          this.cardLists.push({
             id: cardList.id,
             name: cardList.name,
             cards: cardList.cards,
@@ -132,21 +157,11 @@ export default {
             }
           })
         })
-
-        vm.$rt.subscribe('/board/' + vm.board.id, vm.onRealTimeUpdated)
+        this.subscribeToRealTimUpdate()
+      }).catch(error => {
+        notify.error(error.message)
       })
-    }).catch(error => {
-      notify.error(error.message)
-    })
-  },
-  mounted () {
-    this.$el.addEventListener('click', this.dismissActiveForms)
-  },
-  beforeDestroy () {
-    this.$el.removeEventListener('click', this.dismissActiveForms)
-    this.$rt.unsubscribe('/board/' + this.board.id, this.onRealTimeUpdated)
-  },
-  methods: {
+    },
     dismissActiveForms (event) {
       console.log('[BoardPage] Dismissing forms')
       let dismissAddCardForm = true
@@ -286,6 +301,12 @@ export default {
       cardService.changePositions(positionChanges).catch(error => {
         notify.error(error.message)
       })
+    },
+    subscribeToRealTimUpdate () {
+      this.$rt.subscribe('/board/' + this.board.id, this.onRealTimeUpdated)
+    },
+    unsubscribeFromRealTimeUpdate () {
+      this.$rt.unsubscribe('/board/' + this.board.id, this.onRealTimeUpdated)
     },
     onRealTimeUpdated (update) {
       console.log('[BoardPage] Real time update received', update)
