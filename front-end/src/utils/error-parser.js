@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { i18n } from '@/i18n'
+import eventBus from '@/event-bus'
 
 export default {
   parse (error) {
@@ -13,6 +14,7 @@ export default {
           return new Error(i18n.t('error.request.bad'))
         }
       } else if (status === 401) {
+        eventBus.$emit('user.unauthenticated')
         return new Error(i18n.t('error.request.notAuthorized'))
       } else if (status === 403) {
         return new Error(i18n.t('error.request.forbidden'))

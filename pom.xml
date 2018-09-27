@@ -24,7 +24,9 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
     <commons-io.version>2.6</commons-io.version>
+    <im4java.version>1.4.0</im4java.version>
     <p6spy.version>3.7.0</p6spy.version>
+    <aws-s3.version>1.11.409</aws-s3.version>
   </properties>
 
   <dependencies>
@@ -97,6 +99,16 @@
       <artifactId>jjwt-jackson</artifactId>
       <version>0.10.5</version>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.im4java</groupId>
+      <artifactId>im4java</artifactId>
+      <version>${im4java.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk-s3</artifactId>
+      <version>${aws-s3.version}</version>
     </dependency>
 
     <dependency>

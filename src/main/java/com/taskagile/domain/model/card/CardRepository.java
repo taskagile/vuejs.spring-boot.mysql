@@ -7,6 +7,14 @@ import java.util.List;
 public interface CardRepository {
 
   /**
+   * Find a card by its id
+   *
+   * @param cardId the id of a card
+   * @return the card instance or null if not found
+   */
+  Card findById(CardId cardId);
+
+  /**
    * Find cards of a board
    *
    * @param boardId the id of the board

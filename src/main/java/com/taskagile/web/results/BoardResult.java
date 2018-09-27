@@ -53,10 +53,12 @@ public class BoardResult {
   private static class MemberData {
     private long userId;
     private String shortName;
+    private String name;
 
     MemberData(User user) {
       this.userId = user.getId().value();
       this.shortName = user.getInitials();
+      this.name = user.getFirstName() + " " + user.getLastName();
     }
 
     public long getUserId() {
@@ -65,6 +67,10 @@ public class BoardResult {
 
     public String getShortName() {
       return shortName;
+    }
+
+    public String getName() {
+      return name;
     }
   }
 

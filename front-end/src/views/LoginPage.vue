@@ -36,6 +36,7 @@ import { required } from 'vuelidate/lib/validators'
 import authenticationService from '@/services/authentication'
 import Logo from '@/components/Logo.vue'
 import PageFooter from '@/components/PageFooter.vue'
+import notify from '@/utils/notify'
 
 export default {
   name: 'LoginPage',
@@ -72,6 +73,7 @@ export default {
       authenticationService.authenticate(this.form).then(() => {
         this.$router.push({name: 'home'})
         this.$bus.$emit('authenticated')
+        notify.closeAll()
       }).catch((error) => {
         this.errorMessage = error.message
       })

@@ -1,6 +1,4 @@
 import Noty from 'noty'
-import 'noty/lib/noty.css'
-import 'noty/lib/themes/relax.css'
 
 const showError = function (errorMessage) {
   new Noty({
@@ -11,6 +9,11 @@ const showError = function (errorMessage) {
   }).show()
 }
 
+const closeAll = function () {
+  Noty.closeAll()
+}
+
 export default {
-  error: showError
+  error: showError,
+  closeAll: closeAll
 }
