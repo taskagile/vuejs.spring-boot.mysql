@@ -4,7 +4,7 @@ import org.springframework.util.Assert;
 
 import java.util.Objects;
 
-public class RegistrationCommand {
+public class RegisterCommand extends AnonymousCommand {
 
   private String username;
   private String emailAddress;
@@ -12,7 +12,7 @@ public class RegistrationCommand {
   private String lastName;
   private String password;
 
-  public RegistrationCommand(String username, String emailAddress, String firstName, String lastName, String password) {
+  public RegisterCommand(String username, String emailAddress, String firstName, String lastName, String password) {
     Assert.hasText(username, "Parameter `username` must not be empty");
     Assert.hasText(emailAddress, "Parameter `emailAddress` must not be empty");
     Assert.hasText(firstName, "Parameter `firstName` must not be empty");
@@ -49,8 +49,8 @@ public class RegistrationCommand {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof RegistrationCommand)) return false;
-    RegistrationCommand that = (RegistrationCommand) o;
+    if (!(o instanceof RegisterCommand)) return false;
+    RegisterCommand that = (RegisterCommand) o;
     return Objects.equals(username, that.username) &&
       Objects.equals(emailAddress, that.emailAddress) &&
       Objects.equals(firstName, that.firstName) &&
@@ -65,7 +65,7 @@ public class RegistrationCommand {
 
   @Override
   public String toString() {
-    return "RegistrationCommand{" +
+    return "RegisterCommand{" +
       "username='" + username + '\'' +
       ", emailAddress='" + emailAddress + '\'' +
       ", firstName='" + firstName + '\'' +

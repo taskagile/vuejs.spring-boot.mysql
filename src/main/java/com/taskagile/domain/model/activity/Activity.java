@@ -4,6 +4,8 @@ import com.taskagile.domain.common.model.AbstractBaseEntity;
 import com.taskagile.domain.model.board.BoardId;
 import com.taskagile.domain.model.card.CardId;
 import com.taskagile.domain.model.user.UserId;
+import com.taskagile.utils.IpAddress;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -35,29 +37,34 @@ public class Activity extends AbstractBaseEntity {
   @Column(name = "detail")
   private String detail;
 
+  @Column(name = "ip_address")
+  private String ipAddress;
+
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "created_date", nullable = false)
   private Date createdDate;
 
-  public static Activity from(CardActivity cardActivity) {
-    Activity activity = new Activity();
-    activity.userId = cardActivity.getUserId().value();
-    activity.cardId = cardActivity.getCardId().value();
-    activity.boardId = cardActivity.getBoardId().value();
-    activity.type = cardActivity.getType();
-    activity.detail = cardActivity.getDetailJson();
-    activity.createdDate = new Date();
-    return activity;
+  public Activity() {
   }
 
-  public static Activity from(BoardActivity boardActivity) {
-    Activity activity = new Activity();
-    activity.userId = boardActivity.getUserId().value();
-    activity.boardId = boardActivity.getBoardId().value();
-    activity.type = boardActivity.getType();
-    activity.detail = boardActivity.getDetailJson();
-    activity.createdDate = new Date();
-    return activity;
+  private Activity(UserId userId, @Nullable CardId cardId, BoardId boardId,
+                   ActivityType type, String detail, IpAddress ipAddress) {
+    this.userId = userId.value();
+    this.cardId = cardId != null ? cardId.value() : null;
+    this.boardId = boardId.value();
+    this.type = type;
+    this.detail = detail;
+    this.ipAddress = ipAddress.value();
+    this.createdDate = new Date();
+  }
+
+  public static Activity from(UserId userId, BoardId boardId, ActivityType type, String detail, IpAddress ipAddress) {
+    return new Activity(userId, null, boardId, type, detail, ipAddress);
+  }
+
+  public static Activity from(UserId userId, CardId cardId, BoardId boardId, ActivityType type, String detail,
+                              IpAddress ipAddress) {
+    return new Activity(userId, cardId, boardId, type, detail, ipAddress);
   }
 
   public ActivityId getId() {
@@ -84,6 +91,10 @@ public class Activity extends AbstractBaseEntity {
     return detail;
   }
 
+  public IpAddress getIpAddress() {
+    return new IpAddress(ipAddress);
+  }
+
   public Date getCreatedDate() {
     return createdDate;
   }
@@ -98,12 +109,13 @@ public class Activity extends AbstractBaseEntity {
       Objects.equals(cardId, activity.cardId) &&
       Objects.equals(boardId, activity.boardId) &&
       Objects.equals(detail, activity.detail) &&
+      Objects.equals(ipAddress, activity.ipAddress) &&
       Objects.equals(createdDate, activity.createdDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userId, cardId, boardId, type, detail, createdDate);
+    return Objects.hash(userId, cardId, boardId, type, detail, ipAddress, createdDate);
   }
 
   @Override
@@ -115,6 +127,7 @@ public class Activity extends AbstractBaseEntity {
       ", boardId=" + boardId +
       ", type=" + type +
       ", detail='" + detail + '\'' +
+      ", ipAddress='" + ipAddress + '\'' +
       ", createdDate=" + createdDate +
       '}';
   }

@@ -2,7 +2,7 @@ package com.taskagile.domain.application.commands;
 
 import com.taskagile.domain.model.card.CardId;
 
-public class ChangeCardDescriptionCommand {
+public class ChangeCardDescriptionCommand extends UserCommand {
 
   private CardId cardId;
   private String description;

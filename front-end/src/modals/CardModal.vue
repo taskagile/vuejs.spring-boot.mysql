@@ -33,7 +33,7 @@
                 <div class="description" v-show="description && !editingDescription" v-html="descriptionHtml"></div>
               </div>
             </div>
-            <div class="wrapper attachments-wrapper" v-show="attachments.length">
+            <div class="wrapper attachments-wrapper" v-show="attachments.length || uploadingCount">
               <h5><font-awesome-icon icon="paperclip" class="icon"/> <span>Attachments</span></h5>
               <div class="wrapper-body">
                 <div class="uploading" v-show="uploadingCount"><font-awesome-icon icon="spinner" class="fa-spin" spin/>Uploading...</div>

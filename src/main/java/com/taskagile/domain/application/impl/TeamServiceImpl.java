@@ -39,7 +39,7 @@ public class TeamServiceImpl implements TeamService {
   public Team createTeam(CreateTeamCommand command) {
     Team team = Team.create(command.getName(), command.getUserId());
     teamRepository.save(team);
-    domainEventPublisher.publish(new TeamCreatedEvent(this, team));
+    domainEventPublisher.publish(new TeamCreatedEvent(team, command));
     return team;
   }
 }

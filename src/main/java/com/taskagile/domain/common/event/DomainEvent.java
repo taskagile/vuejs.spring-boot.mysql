@@ -1,23 +1,43 @@
 package com.taskagile.domain.common.event;
 
-import org.springframework.context.ApplicationEvent;
+import com.taskagile.domain.model.user.UserId;
+import com.taskagile.utils.IpAddress;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
- * Domain event
+ * Domain event. It is about who did what at what time.
  */
-public abstract class DomainEvent extends ApplicationEvent {
+public abstract class DomainEvent implements Serializable {
 
-  private static final long serialVersionUID = -444783093811334147L;
+  private static final long serialVersionUID = 8945128060450240352L;
 
-  public DomainEvent(Object source) {
-    super(source);
+  private UserId userId;
+  private IpAddress ipAddress;
+  private Date occurredAt;
+
+  public DomainEvent(TriggeredBy triggeredBy) {
+    this.userId = triggeredBy.getUserId();
+    this.ipAddress = triggeredBy.getIpAddress();
+    this.occurredAt = new Date();
   }
 
-  /**
-   * Get the timestamp this event occurred
-   */
-  public long occurredAt() {
-    // Return the underlying implementation's timestamp
-    return getTimestamp();
+  public DomainEvent(UserId userId, TriggeredFrom triggeredFrom) {
+    this.userId = userId;
+    this.ipAddress = triggeredFrom.getIpAddress();
+    this.occurredAt = new Date();
+  }
+
+  public UserId getUserId() {
+    return userId;
+  }
+
+  public IpAddress getIpAddress() {
+    return ipAddress;
+  }
+
+  public Date getOccurredAt() {
+    return occurredAt;
   }
 }

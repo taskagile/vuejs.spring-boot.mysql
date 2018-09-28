@@ -1,7 +1,7 @@
 package com.taskagile.web.apis.authenticate;
 
-import com.taskagile.web.results.ApiResult;
 import com.taskagile.utils.JsonUtils;
+import com.taskagile.web.results.ApiResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public enum ActivityType {
   UNKNOWN(""),
-  CREATE_BOARD("create-board"),
+  ADD_BOARD("add-board"),
   RENAME_BOARD("rename-board"),
   ARCHIVE_BOARD("archive-board"),
   ADD_BOARD_MEMBER("add-board-member"),
@@ -59,7 +59,7 @@ public enum ActivityType {
   private static final Map<Object, ActivityType> TYPES = new HashMap<>();
 
   static {
-    TYPES.put(CREATE_BOARD.type, CREATE_BOARD);
+    TYPES.put(ADD_BOARD.type, ADD_BOARD);
     TYPES.put(RENAME_BOARD.type, RENAME_BOARD);
     TYPES.put(ARCHIVE_BOARD.type, ARCHIVE_BOARD);
     TYPES.put(ADD_BOARD_MEMBER.type, ADD_BOARD_MEMBER);

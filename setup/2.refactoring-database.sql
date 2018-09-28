@@ -15,6 +15,9 @@ ALTER TABLE `task_agile`.`card` ADD CONSTRAINT `fk_card_board_board_id`
 ALTER TABLE `task_agile`.`activity` CHANGE COLUMN `board_id` `board_id` INT(11) NULL  COMMENT '' AFTER `card_id`;
 -- Change type to support integer value other than 0, 1
 ALTER TABLE `task_agile`.`activity` CHANGE COLUMN `type` `type` INT(11) NOT NULL COMMENT '' AFTER `board_id`;
+-- Add `ip_address` to activity table
+ALTER TABLE `task_agile`.`activity` ADD COLUMN `ip_address` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' AFTER `detail`;
+
 -- Change file_type to be a varchar
 ALTER TABLE `task_agile`.`attachment` CHANGE COLUMN `file_type` `file_type` VARCHAR(32) NOT NULL DEFAULT ''  COMMENT '' AFTER `file_path`;
 -- Add thumbnail_created to attachment

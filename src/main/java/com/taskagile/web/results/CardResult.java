@@ -1,7 +1,6 @@
 package com.taskagile.web.results;
 
 import com.taskagile.domain.model.card.Card;
-
 import org.springframework.http.ResponseEntity;
 
 public class CardResult {

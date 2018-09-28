@@ -1,14 +1,16 @@
 package com.taskagile.domain.application.impl;
 
-import com.taskagile.domain.application.commands.RegistrationCommand;
+import com.taskagile.domain.application.commands.RegisterCommand;
 import com.taskagile.domain.common.event.DomainEventPublisher;
 import com.taskagile.domain.common.mail.MailManager;
 import com.taskagile.domain.common.mail.MessageVariable;
 import com.taskagile.domain.model.user.*;
 import com.taskagile.domain.model.user.events.UserRegisteredEvent;
+import com.taskagile.utils.IpAddress;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -117,7 +119,7 @@ public class UserServiceImplTests {
     doThrow(UsernameExistsException.class).when(registrationManagementMock)
       .register(username, emailAddress, firstName, lastName, password);
 
-    RegistrationCommand command = new RegistrationCommand(username, emailAddress, firstName, lastName, password);
+    RegisterCommand command = new RegisterCommand(username, emailAddress, firstName, lastName, password);
     instance.register(command);
   }
 
@@ -131,7 +133,7 @@ public class UserServiceImplTests {
     doThrow(EmailAddressExistsException.class).when(registrationManagementMock)
       .register(username, emailAddress, firstName, lastName, password);
 
-    RegistrationCommand command = new RegistrationCommand(username, emailAddress, firstName, lastName, password);
+    RegisterCommand command = new RegisterCommand(username, emailAddress, firstName, lastName, password);
     instance.register(command);
   }
 
@@ -142,10 +144,25 @@ public class UserServiceImplTests {
     String password = "MyPassword!";
     String firstName = "Sunny";
     String lastName = "Hu";
-    User newUser = User.create(username, emailAddress, firstName, lastName, password);
+    User newUser = mock(User.class);
+    when(newUser.getId()).thenReturn(new UserId(1));
+    when(newUser.getUsername()).thenReturn(username);
+    when(newUser.getEmailAddress()).thenReturn(emailAddress);
+    when(newUser.getPassword()).thenReturn(password);
+    when(newUser.getFirstName()).thenReturn(firstName);
+    when(newUser.getFirstName()).thenReturn(lastName);
+
     when(registrationManagementMock.register(username, emailAddress, firstName, lastName, password))
       .thenReturn(newUser);
-    RegistrationCommand command = new RegistrationCommand(username, emailAddress, firstName, lastName, password);
+
+    IpAddress ipAddress = new IpAddress("127.0.0.1");
+    RegisterCommand command = mock(RegisterCommand.class);
+    when(command.getUsername()).thenReturn(username);
+    when(command.getEmailAddress()).thenReturn(emailAddress);
+    when(command.getFirstName()).thenReturn(firstName);
+    when(command.getLastName()).thenReturn(lastName);
+    when(command.getPassword()).thenReturn(password);
+    when(command.getIpAddress()).thenReturn(ipAddress);
 
     instance.register(command);
 
@@ -155,6 +172,12 @@ public class UserServiceImplTests {
       "welcome.ftl",
       MessageVariable.from("user", newUser)
     );
-    verify(domainEventPublisherMock).publish(new UserRegisteredEvent(this, newUser));
+
+    ArgumentCaptor<UserRegisteredEvent> argumentCaptor = ArgumentCaptor.forClass(UserRegisteredEvent.class);
+    verify(domainEventPublisherMock).publish(argumentCaptor.capture());
+
+    UserRegisteredEvent event = argumentCaptor.getValue();
+    assertEquals(newUser.getId(), event.getUserId());
+    assertEquals(ipAddress, event.getIpAddress());
   }
 }

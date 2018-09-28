@@ -3,7 +3,6 @@ package com.taskagile.web.payload;
 import com.taskagile.domain.application.commands.AddCardCommand;
 import com.taskagile.domain.model.board.BoardId;
 import com.taskagile.domain.model.cardlist.CardListId;
-import com.taskagile.domain.model.user.UserId;
 
 public class AddCardPayload {
 
@@ -12,8 +11,8 @@ public class AddCardPayload {
   private String title;
   private int position;
 
-  public AddCardCommand toCommand(UserId userId) {
-    return new AddCardCommand(new CardListId(cardListId), userId, title, position);
+  public AddCardCommand toCommand() {
+    return new AddCardCommand(new CardListId(cardListId), title, position);
   }
 
   public BoardId getBoardId() {
