@@ -128,6 +128,12 @@ public class CardServiceImpl implements CardService {
     Card card = findCard(command.getCardId());
     Attachment attachment = attachmentManagement.save(
       command.getCardId(), command.getFile(), command.getUserId());
+
+    if (!card.hasCoverImage() && attachment.isThumbnailCreated()) {
+      card.addCoverImage(attachment.getFilePath());
+      cardRepository.save(card);
+    }
+
     domainEventPublisher.publish(new CardAttachmentAddedEvent(card, attachment, command));
     return attachment;
   }

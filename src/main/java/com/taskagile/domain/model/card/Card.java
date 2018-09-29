@@ -5,6 +5,7 @@ import com.taskagile.domain.model.board.BoardId;
 import com.taskagile.domain.model.cardlist.CardList;
 import com.taskagile.domain.model.cardlist.CardListId;
 import com.taskagile.domain.model.user.UserId;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -34,6 +35,9 @@ public class Card extends AbstractBaseEntity {
 
   @Column(name = "description")
   private String description;
+
+  @Column(name = "cover_image")
+  private String coverImage;
 
   @Column(name = "position")
   private int position;
@@ -66,6 +70,14 @@ public class Card extends AbstractBaseEntity {
     this.description = description;
   }
 
+  public boolean hasCoverImage() {
+    return StringUtils.hasText(coverImage);
+  }
+
+  public void addCoverImage(String coverImage) {
+    this.coverImage = coverImage;
+  }
+
   public CardId getId() {
     return new CardId(id);
   }
@@ -88,6 +100,10 @@ public class Card extends AbstractBaseEntity {
 
   public String getDescription() {
     return description;
+  }
+
+  public String getCoverImage() {
+    return coverImage;
   }
 
   public int getPosition() {
@@ -128,6 +144,7 @@ public class Card extends AbstractBaseEntity {
       ", userId=" + userId +
       ", title='" + title + '\'' +
       ", description='" + description + '\'' +
+      ", coverImage='" + coverImage + '\'' +
       ", position=" + position +
       ", archived=" + archived +
       ", createdDate=" + createdDate +
