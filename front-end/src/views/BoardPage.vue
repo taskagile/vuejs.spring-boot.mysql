@@ -136,7 +136,9 @@ export default {
   beforeRouteLeave (to, from, next) {
     console.log('[BoardPage] Before route leave')
     next()
-    this.unsubscribeFromRealTimeUpdate(this.board.id)
+    if (to.name !== 'card') {
+      this.unsubscribeFromRealTimeUpdate(this.board.id)
+    }
   },
   mounted () {
     console.log('[BoardPage] Mouted')
