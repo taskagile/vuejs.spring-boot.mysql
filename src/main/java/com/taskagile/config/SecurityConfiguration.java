@@ -6,6 +6,7 @@ import com.taskagile.web.apis.authenticate.AuthenticationFilter;
 import com.taskagile.web.apis.authenticate.SimpleAuthenticationFailureHandler;
 import com.taskagile.web.apis.authenticate.SimpleAuthenticationSuccessHandler;
 import com.taskagile.web.apis.authenticate.SimpleLogoutSuccessHandler;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -33,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
       .and()
         .authorizeRequests()
         .antMatchers(PUBLIC).permitAll()
+        .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
         .anyRequest().authenticated()
       .and()
         .addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)

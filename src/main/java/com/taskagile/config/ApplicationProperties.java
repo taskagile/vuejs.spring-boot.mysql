@@ -35,6 +35,8 @@ public class ApplicationProperties {
   @NotNull
   private ImageSetting image;
 
+  private CdnSetting cdn;
+
   public void setMailFrom(String mailFrom) {
     this.mailFrom = mailFrom;
   }
@@ -73,6 +75,14 @@ public class ApplicationProperties {
 
   public void setImage(ImageSetting image) {
     this.image = image;
+  }
+
+  public CdnSetting getCdn() {
+    return cdn;
+  }
+
+  public void setCdn(CdnSetting cdn) {
+    this.cdn = cdn;
   }
 
   //---------------------------------------
@@ -164,6 +174,18 @@ public class ApplicationProperties {
 
     public void setCommandSearchPath(String commandSearchPath) {
       this.commandSearchPath = commandSearchPath;
+    }
+  }
+
+  private static class CdnSetting {
+    private String url = "http://taskagile.local";
+
+    public String getUrl() {
+      return url;
+    }
+
+    public void setUrl(String url) {
+      this.url = url;
     }
   }
 }
