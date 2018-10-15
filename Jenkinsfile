@@ -32,8 +32,8 @@ pipeline {
 
         stage("Deploy to staging") {
             steps {
-                sh "ssh ${JENKINS_AT_STAGING} rm -fr /app/env.list /app/start.sh"
-                sh "scp ./docker/env.list ./docker/start.sh ${JENKINS_AT_STAGING}:/app"
+                sh "ssh ${JENKINS_AT_STAGING} rm -fr /app/start.sh"
+                sh "scp ./docker/start.sh ${JENKINS_AT_STAGING}:/app"
                 sh "ssh ${JENKINS_AT_STAGING} \"cd /app && ./start.sh ${env.GIT_COMMIT}\""
             }
         }
