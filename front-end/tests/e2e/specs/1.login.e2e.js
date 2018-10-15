@@ -6,7 +6,7 @@ module.exports = {
 
     loginPage
       .navigate()
-      .waitForElementVisible('@app', 500)
+      .waitForElementVisible('@app', 30000)
       .assert.visible('@usernameInput')
       .assert.visible('@passwordInput')
       .assert.visible('@submitButton')
@@ -20,7 +20,7 @@ module.exports = {
       .navigate()
       .login('not-exist', 'incorrect')
 
-    browser.pause(500)
+    browser.pause(2000)
 
     loginPage
       .assert.visible('@formError')

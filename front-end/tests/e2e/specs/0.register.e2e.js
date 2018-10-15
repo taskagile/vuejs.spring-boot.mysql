@@ -29,7 +29,7 @@ module.exports = {
 
     registerPage
       .navigate()
-      .waitForElementVisible('@app', 500)
+      .waitForElementVisible('@app', 30000)
       .assert.visible('@usernameInput')
       .assert.visible('@emailAddressInput')
       .assert.visible('@firstNameInput')
